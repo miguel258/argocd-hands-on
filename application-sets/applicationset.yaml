@@ -3,13 +3,16 @@ kind: ApplicationSet
 metadata:
   name: many-apps-application-set
   namespace: argocd
+  
 spec:
   generators:
   - git:
       repoURL: https://github.com/lmelec/argocd-hands-on.git
       revision: HEAD
+
       directories:
       - path: application-sets/apps/*
+
   template:      
     metadata:
       name: '{{path.basename}}'
