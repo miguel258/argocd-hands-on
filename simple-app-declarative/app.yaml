@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: simple-app-decalrative
+  name: simple-app-declarative
 spec:
   destination:
     name: ''
     namespace: default
     server: 'https://kubernetes.default.svc'
   source:
-    path: ./simple-app/manifest
+    path: ./simple-app-declarative/manifest
     repoURL: 'https://github.com/lmelec/argocd-hands-on.git'
     targetRevision: HEAD
   sources: []
