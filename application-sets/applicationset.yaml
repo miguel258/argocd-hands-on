@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: many-apps-application-set
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/lmelec/argocd-hands-on.git
+      revision: HEAD
+      directories:
+      - path: application-sets/apps/*
+  template:      
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/lmelec/argocd-hands-on.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true  
+        automated: 
+          prune: true 
+          selfHeal: true
