@@ -13,6 +13,11 @@ kubectl apply -f service.yml
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
+## **Extraer Password Admin User**
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+
 ## **Instalar ArgoCD CLI**
 ```bash
 curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v2.11.2/argocd-linux-amd64
